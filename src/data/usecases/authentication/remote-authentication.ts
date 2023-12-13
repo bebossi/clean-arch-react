@@ -1,4 +1,4 @@
-import { HttpPostClientSpy } from './remote-authentication.spec';
+import { HttpPostClientSpy } from 'data/test/mock-hhtp-client';
 
 export class RemoteAuthentication {
   constructor(
