@@ -1,4 +1,5 @@
 import { HttpPostClientSpy } from 'data/test/mock-http-client';
+import { AuthenticationParams } from 'domain/usecases/authentication';
 
 export class RemoteAuthentication {
   constructor(
@@ -6,7 +7,7 @@ export class RemoteAuthentication {
     private readonly httpPostClient: HttpPostClientSpy
   ) {}
 
-  async auth(): Promise<void> {
-    await this.httpPostClient.post({ url: this.url });
+  async auth(params: AuthenticationParams): Promise<void> {
+    await this.httpPostClient.post({ url: this.url, body: params });
   }
 }
