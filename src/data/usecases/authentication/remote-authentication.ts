@@ -1,5 +1,5 @@
-import { HttpPostClientSpy } from 'data/test/mock-http-client';
-import { AuthenticationParams } from 'domain/usecases/authentication';
+import { HttpPostClientSpy } from '@/data/test/mock-http-client';
+import { AuthenticationParams } from '@/domain/usecases/authentication';
 
 export class RemoteAuthentication {
   constructor(
