@@ -1,23 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "jsx": "react",
-    "rootDir": ".",
+    "rootDir": "src",
     "baseUrl": "src",
     "paths": {
       "@/*": ["*"]
     },
-    "allowJs": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
+    "allowJs": false, //should be true ?
     "resolveJsonModule": true,
-    "incremental": true,
-    "noEmit": true
+    "incremental": true
   },
-  "include": ["src", "./jest.config.js"]
+  "include": ["./src", "./jest.config.js"]
 }
