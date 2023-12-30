@@ -11,9 +11,10 @@
     "paths": {
       "@/*": ["*"]
     },
-    "allowJs": false, //should be true ?
+    "allowJs": true,
+    "checkJs": true,
     "resolveJsonModule": true,
     "incremental": true
   },
-  "include": ["./src", "./jest.config.js"]
+  "include": ["src"]
 }
