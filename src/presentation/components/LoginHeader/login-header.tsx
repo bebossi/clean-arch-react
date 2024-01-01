@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import Logo from './logo';
+import Logo from '../Logo/logo';
 
 const LoginHeader: React.FC = () => {
   return (
