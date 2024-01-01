@@ -1,9 +1,9 @@
 import React from 'react';
 import '../../../main/config/style.css';
-import Spinner from '@/presentation/components/spinner';
 import LoginHeader from '@/presentation/components/login-header';
 import Footer from '@/presentation/components/footer';
 import Input from '@/presentation/components/input';
+import FormStatus from '@/presentation/components/form-status';
 
 const Login: React.FC = () => {
   return (
@@ -29,10 +29,7 @@ const Login: React.FC = () => {
         <span className="text-center text-rose-500 mt-[16px] cursor-pointer hover:underline">
           Register
         </span>
-        <div className="flex flex-col items-center ">
-          <Spinner />
-          <span className="mt-[30px] text-rose-500">Error</span>
-        </div>
+        <FormStatus />
       </form>
       <Footer />
     </div>
