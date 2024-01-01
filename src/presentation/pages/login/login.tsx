@@ -1,17 +1,13 @@
 import React from 'react';
 import '../../../main/config/style.css';
 import Spinner from '@/presentation/components/spinner';
-import Logo from '@/presentation/components/logo';
+import LoginHeader from '@/presentation/components/login-header';
+import Footer from '@/presentation/components/footer';
+
 const Login: React.FC = () => {
-  console.log('ola');
   return (
     <div className="flex flex-col h-screen justify-between bg-slate-100">
-      <header className="bg-rose-700 flex flex-col border-t-[40px] border-t-rose-900 items-center">
-        <Logo />
-        <h1 className="text-white mt-[16px] mb-[40px] ">
-          4Dev - Poll for developers
-        </h1>
-      </header>
+      <LoginHeader />
       <form className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md">
         <h2 className="text-rose-950 text-center text-xl font-bold ">LOGIN</h2>
         <div className="flex  relative items-center  mt-[16px] ">
@@ -44,7 +40,7 @@ const Login: React.FC = () => {
           <span className="mt-[30px] text-rose-500">Error</span>
         </div>
       </form>
-      <footer className="bg-rose-900 h-[48px]"></footer>
+      <Footer />
     </div>
   );
 };
