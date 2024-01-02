@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Spinner from '../Spinner/spinner';
-import Context from '@/presentation/components/contexts/form/form-context';
+import Context from '@/presentation/contexts/form/form-context';
 
 const FormStatus: React.FC = () => {
   const { state } = useContext(Context);

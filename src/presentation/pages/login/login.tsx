@@ -6,7 +6,7 @@ import {
   Input,
   FormStatus,
 } from '@/presentation/components';
-import Context from '@/presentation/components/contexts/form/form-context';
+import Context from '@/presentation/contexts/form/form-context';
 import { Validation } from '@/presentation/protocols/validation';
 
 type Props = {

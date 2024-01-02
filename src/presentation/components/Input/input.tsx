@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
-import Context from '@/presentation/components/contexts/form/form-context';
+import Context from '@/presentation/contexts/form/form-context';
 
 type Props = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
