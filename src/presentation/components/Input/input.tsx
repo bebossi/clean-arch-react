@@ -8,10 +8,7 @@ type Props = React.DetailedHTMLProps<
 const Input: React.FC<Props> = (props: Props) => {
   return (
     <div className="flex  relative items-center mt-[16px] ">
-      <input
-        {...props}
-        // className="flex-grow pl-[8px] pr-[40px] border border-rose-500 leading-[40px] rounded-[4px] focus:outline-rose-500 "
-      />
+      <input {...props} />
       {/* <span>🟢</span> */}
 
       <span className="absolute right-8 text-xs cursor-help">🔴</span>
