@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     <div className="flex flex-col h-screen justify-between bg-slate-100">
       <LoginHeader />
       <form className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md">
-        <h2 className="text-rose-950 text-center text-xl font-bold ">LOGIN</h2>
+        <h2 className="text-rose-900 text-center text-xl font-bold ">LOGIN</h2>
         <Input
           className="flex-grow pl-[8px] pr-[40px] border border-rose-500 leading-[40px] rounded-[4px] focus:outline-rose-500 "
           type="email"
