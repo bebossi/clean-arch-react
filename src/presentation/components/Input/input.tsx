@@ -10,6 +10,7 @@ type Props = React.DetailedHTMLProps<
 const Input: React.FC<Props> = (props: Props) => {
   const { state, setState } = useContext(Context);
   const error = state[`${props.name}Error`];
+
   const handleChange = (event: React.FocusEvent<HTMLInputElement>): void => {
     setState({
       ...state,
@@ -26,11 +27,11 @@ const Input: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <div className="flex  relative items-center mt-[16px] ">
+    <div className="flex relative items-center mt-[16px] ">
       <input {...props} data-testid={props.name} onChange={handleChange} />
       <span
-        data-testid={`${props.name}-status`}
         title={getTitle()}
+        data-testid={`${props.name}-status`}
         className="absolute right-8 text-xs cursor-help"
       >
         {getStatus()}
