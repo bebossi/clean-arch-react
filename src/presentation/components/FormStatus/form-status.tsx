@@ -3,12 +3,12 @@ import Spinner from '../Spinner/spinner';
 import Context from '@/presentation/components/contexts/form/form-context';
 
 const FormStatus: React.FC = () => {
-  const { state, errorState } = useContext(Context);
+  const { state } = useContext(Context);
   return (
     <div data-testid="error-wrap" className="flex flex-col items-center ">
       {state.isLoading && <Spinner />}
-      {errorState.main && (
-        <span className="mt-[30px] text-rose-500">{errorState.main}</span>
+      {state.mainError && (
+        <span className="mt-[30px] text-rose-500">{state.mainError}</span>
       )}
     </div>
   );

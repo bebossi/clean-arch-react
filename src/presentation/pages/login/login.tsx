@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   LoginHeader,
   Footer,
@@ -7,21 +7,29 @@ import {
   FormStatus,
 } from '@/presentation/components';
 import Context from '@/presentation/components/contexts/form/form-context';
+import { Validation } from '@/presentation/protocols/validation';
 
-const Login: React.FC = () => {
-  const [state] = useState({
+type Props = {
+  validation: Validation;
+};
+
+const Login: React.FC<Props> = ({ validation }: Props) => {
+  const [state, setState] = useState({
     isLoading: false,
+    email: '',
+    emailError: 'Required field',
+    passwordError: 'Required field',
+    mainError: '',
   });
-  const [errorState] = useState({
-    email: 'Required field',
-    password: 'Required field',
-    main: '',
-  });
+
+  useEffect(() => {
+    validation.validate({ email: state.email });
+  }, [state.email]);
 
   return (
     <div className="flex flex-col h-screen justify-between bg-slate-100">
       <LoginHeader />
-      <Context.Provider value={{ state, errorState }}>
+      <Context.Provider value={{ state, setState }}>
         <form className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md">
           <h2 className="text-rose-900 text-center text-xl font-bold ">
             LOGIN
