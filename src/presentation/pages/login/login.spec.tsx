@@ -55,4 +55,13 @@ describe('Login Component', () => {
       email: 'email.com',
     });
   });
+
+  test('Should call validation with correct password', () => {
+    const { sut, validationSpy } = makeSut();
+    const passwordInput = sut.getByTestId('password');
+    fireEvent.input(passwordInput, { target: { value: 'password123' } });
+    expect(validationSpy.input).toEqual({
+      password: 'password123',
+    });
+  });
 });
