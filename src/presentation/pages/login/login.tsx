@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import React, { useState } from 'react';
 import {
   LoginHeader,
@@ -38,7 +39,13 @@ const Login: React.FC = () => {
             name="password"
             placeholder="Enter your password"
           />
-          <button className="bg-rose-700 mt-[32px] text-white rounded-lg text-base border-none leading-[60px] hover:opacity-90">
+          <button
+            data-testid="submit"
+            disabled={true}
+            className={`bg-gray-200 mt-[32px] text-white rounded-lg text-base border-none leading-[60px] ${
+              true ? 'bg-gray-400 text-gray-700 hover:opacity-100' : ''
+            }`}
+          >
             Login
           </button>
           <span className="text-center text-rose-500 mt-[16px] cursor-pointer hover:underline">
