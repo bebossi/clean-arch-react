@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Spinner from '../Spinner/spinner';
+import Context from '@/presentation/components/contexts/form/form-context';
 
 const FormStatus: React.FC = () => {
+  const { isLoading, errorMessage } = useContext(Context);
   return (
-    <div className="flex flex-col items-center ">
-      <Spinner />
-      <span className="mt-[30px] text-rose-500">Error</span>
+    <div data-testid="error-wrap" className="flex flex-col items-center ">
+      {isLoading && <Spinner />}
+      {errorMessage && (
+        <span className="mt-[30px] text-rose-500">{errorMessage}</span>
+      )}
     </div>
   );
 };
