@@ -18,16 +18,16 @@ const Input: React.FC<Props> = (props: Props) => {
   };
 
   const getStatus = (): string => {
-    return '🔴';
+    return error ? '🔴' : '🟢';
   };
 
   const getTitle = (): string => {
-    return error;
+    return error || 'OK';
   };
+
   return (
     <div className="flex  relative items-center mt-[16px] ">
-      <input data-testid={props.name} onChange={handleChange} {...props} />
-      {/* <span>🟢</span> */}
+      <input {...props} data-testid={props.name} onChange={handleChange} />
       <span
         data-testid={`${props.name}-status`}
         title={getTitle()}
