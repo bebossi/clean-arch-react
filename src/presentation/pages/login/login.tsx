@@ -8,21 +8,20 @@ import {
 } from '@/presentation/components';
 import Context from '@/presentation/components/contexts/form/form-context';
 
-type StateProps = {
-  isLoading: boolean;
-  errorMessage: string;
-};
-
 const Login: React.FC = () => {
-  const [state] = useState<StateProps>({
+  const [state] = useState({
     isLoading: false,
-    errorMessage: '',
+  });
+  const [errorState] = useState({
+    email: 'Required field',
+    password: 'Required field',
+    main: '',
   });
 
   return (
     <div className="flex flex-col h-screen justify-between bg-slate-100">
       <LoginHeader />
-      <Context.Provider value={state}>
+      <Context.Provider value={{ state, errorState }}>
         <form className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md">
           <h2 className="text-rose-900 text-center text-xl font-bold ">
             LOGIN
@@ -54,7 +53,6 @@ const Login: React.FC = () => {
           <FormStatus />
         </form>
       </Context.Provider>
-
       <Footer />
     </div>
   );
