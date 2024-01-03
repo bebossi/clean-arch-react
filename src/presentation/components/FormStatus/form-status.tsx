@@ -8,7 +8,9 @@ const FormStatus: React.FC = () => {
     <div data-testid="error-wrap" className="flex flex-col items-center ">
       {state.isLoading && <Spinner />}
       {state.mainError && (
-        <span className="mt-[30px] text-rose-500">{state.mainError}</span>
+        <span data-testid="main-error" className="mt-[30px] text-rose-500">
+          {state.mainError}
+        </span>
       )}
     </div>
   );
