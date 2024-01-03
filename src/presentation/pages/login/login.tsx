@@ -31,11 +31,22 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
     });
   }, [state.email, state.password]);
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    setState({
+      ...state,
+      isLoading: true,
+    });
+  };
+
   return (
     <div className="flex flex-col h-screen justify-between bg-slate-100">
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
-        <form className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md"
+        >
           <h2 className="text-rose-900 text-center text-xl font-bold ">
             LOGIN
           </h2>
