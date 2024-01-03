@@ -37,7 +37,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
-    if (state.isLoading) {
+    if (state.isLoading || state.emailError || state.passwordError) {
       return;
     }
     setState({
@@ -52,6 +52,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
         <form
+          data-testid="form"
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
           onSubmit={handleSubmit}
           className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md"
