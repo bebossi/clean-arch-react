@@ -26,7 +26,7 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
   useEffect(() => {
     setState({
       ...state,
-      emailError: validation.validate('email', state.email),
+      emailError: validation.validate('email', state.email), // quebrando codigo
       passwordError: validation.validate('password', state.password),
     });
   }, [state.email, state.password]);
@@ -53,9 +53,11 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
           />
           <button
             data-testid="submit"
-            disabled={true}
+            disabled={!!state.emailError || !!state.passwordError}
             className={`bg-gray-200 mt-[32px] text-white rounded-lg text-base border-none leading-[60px] ${
-              true ? 'bg-gray-400 text-gray-700 hover:opacity-100' : ''
+              !!state.emailError || !!state.passwordError
+                ? 'bg-gray-400 text-gray-700 hover:opacity-100'
+                : ''
             }`}
           >
             Login
