@@ -8,8 +8,9 @@ import {
   waitFor,
 } from '@testing-library/react';
 import { AuthenticationSpy, ValidationStub } from '@/presentation/test';
-import { faker } from '@faker-js/faker';
 import { InvalidCredentialsError } from '@/domain/errors';
+import { faker } from '@faker-js/faker';
+import 'jest-localstorage-mock';
 
 type SutTypes = {
   sut: RenderResult;
@@ -75,6 +76,9 @@ const simulateStatusForField = (
 
 describe('Login Component', () => {
   afterEach(cleanup);
+  beforeEach(() => {
+    localStorage.clear();
+  });
   test('Should start with initial state', () => {
     const validationError = faker.word.words();
     const { sut } = makeSut({ validationError });
@@ -165,5 +169,16 @@ describe('Login Component', () => {
     const mainError = sut.getByTestId('main-error');
     expect(mainError.textContent).toBe(error.message);
     expect(errorWrap.childElementCount).toBe(1);
+  });
+
+  test('Should add access token to localsotarge on success', async () => {
+    const { sut, authenticationSpy } = makeSut();
+    simulateValidSubmit(sut);
+    await waitFor(() => sut.getByTestId('form'));
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'accessToken',
+      authenticationSpy.account.accessToken
+    );
   });
 });
