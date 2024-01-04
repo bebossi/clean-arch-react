@@ -9,6 +9,7 @@ import {
 import Context from '@/presentation/contexts/form/form-context';
 import { Validation } from '@/presentation/protocols/validation';
 import { Authentication } from '@/domain/usecases';
+import { Link } from 'react-router-dom';
 
 type Props = {
   validation: Validation;
@@ -95,9 +96,12 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
           >
             Login
           </button>
-          <span className="text-center text-rose-500 mt-[16px] cursor-pointer hover:underline">
-            Register
-          </span>
+          <Link
+            to="/signup"
+            className="text-center text-rose-500 mt-[16px] cursor-pointer hover:underline"
+          >
+            <span data-testid="signup">Register</span>
+          </Link>
           <FormStatus />
         </form>
       </Context.Provider>
