@@ -11,7 +11,8 @@ import { AuthenticationSpy, ValidationStub } from '@/presentation/test';
 import { InvalidCredentialsError } from '@/domain/errors';
 import { faker } from '@faker-js/faker';
 import 'jest-localstorage-mock';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 
 type SutTypes = {
   sut: RenderResult;
@@ -21,14 +22,19 @@ type SutTypes = {
 type SutParams = {
   validationError: string;
 };
+
+const history = createMemoryHistory({ initialEntries: ['/login'] });
+
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub();
   const authenticationSpy = new AuthenticationSpy();
   validationStub.errorMessage = params?.validationError;
   const sut = render(
-    <BrowserRouter>
+    // <MemoryRouter initialEntries={['/login']}>
+    <Router location={history.location} navigator={history}>
       <Login validation={validationStub} authentication={authenticationSpy} />
-    </BrowserRouter>
+    </Router>
+    // </MemoryRouter>
   );
   return {
     sut,
@@ -184,10 +190,23 @@ describe('Login Component', () => {
     );
   });
 
-  test('Should go to signup page', () => {
+  test('Should add access token to localsotarge on success', async () => {
+    const { sut, authenticationSpy } = makeSut();
+    simulateValidSubmit(sut);
+    console.log(window.location.pathname);
+    await waitFor(() => sut.getByTestId('form'));
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'accessToken',
+      authenticationSpy.account.accessToken
+    );
+    expect(history.location.pathname).toBe('/');
+  });
+
+  test('Should go to signup page', async () => {
     const { sut } = makeSut();
     const register = sut.getByTestId('signup');
     fireEvent.click(register);
-    expect(window.location.pathname).toBe('/signup');
+    expect(history.location.pathname).toBe('/signup');
   });
 });
