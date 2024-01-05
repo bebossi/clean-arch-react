@@ -4,22 +4,40 @@ import {
   RequiredFieldValidation,
 } from '@/validation/validators';
 import { ValidationBuilder } from './validation-builder';
-
+import { faker } from '@faker-js/faker';
 describe('ValidationBuilder', () => {
   test('Should return RequiredFieldValidation', () => {
-    const validations = ValidationBuilder.field('anyField').required().build();
-    expect(validations).toEqual([new RequiredFieldValidation('anyField')]);
+    const field = faker.database.column();
+    const validations = ValidationBuilder.field(field).required().build();
+    expect(validations).toEqual([new RequiredFieldValidation(field)]);
   });
 
   test('Should return EmailValidation', () => {
-    const validations = ValidationBuilder.field('anyField').email().build();
-    expect(validations).toEqual([new EmailValidation('anyField')]);
+    const field = faker.database.column();
+
+    const validations = ValidationBuilder.field(field).email().build();
+    expect(validations).toEqual([new EmailValidation(field)]);
   });
 
   test('Should return EmailValidation', () => {
-    const validations = ValidationBuilder.field('anyField')
+    const field = faker.database.column();
+
+    const validations = ValidationBuilder.field(field).minLength(5).build();
+    expect(validations).toEqual([new MinLengthValidation(field, 5)]);
+  });
+
+  test('Should return a list of Validations', () => {
+    const field = faker.database.column();
+
+    const validations = ValidationBuilder.field(field)
+      .required()
+      .email()
       .minLength(5)
       .build();
-    expect(validations).toEqual([new MinLengthValidation('anyField', 5)]);
+    expect(validations).toEqual([
+      new RequiredFieldValidation(field),
+      new EmailValidation(field),
+      new MinLengthValidation(field, 5),
+    ]);
   });
 });
