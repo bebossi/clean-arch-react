@@ -51,6 +51,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
         email: state.email,
         password: state.password,
       });
+      console.log('account', account);
       localStorage.setItem('accessToken', account.accessToken);
       navigate('/');
     } catch (err) {
@@ -90,7 +91,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
           <button
             data-testid="submit"
             disabled={!!state.emailError || !!state.passwordError}
-            className={`bg-gray-200 mt-[32px] text-white rounded-lg text-base border-none leading-[60px] ${
+            className={`bg-rose-500 mt-[32px] text-white rounded-lg text-base border-none leading-[60px] ${
               !!state.emailError || !!state.passwordError
                 ? 'bg-gray-400 text-gray-700 hover:opacity-100'
                 : ''
