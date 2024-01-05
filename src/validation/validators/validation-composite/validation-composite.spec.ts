@@ -1,16 +1,17 @@
-import { FieldValidationSpy } from '../test/mock-field-validation';
+import { FieldValidationSpy } from '@/validation/test/mock-field-validation';
 import { ValidationComposite } from './validation-composite';
 import { faker } from '@faker-js/faker';
+
 type SutTypes = {
   sut: ValidationComposite;
   fieldValidationsSpy: FieldValidationSpy[];
 };
 const makeSut = (fieldName: string): SutTypes => {
-  const fieldValidationsSpy = [
+  const fieldValidationsSpy: FieldValidationSpy[] = [
     new FieldValidationSpy(fieldName),
     new FieldValidationSpy(fieldName),
   ];
-  const sut = new ValidationComposite(fieldValidationsSpy);
+  const sut = ValidationComposite.build(fieldValidationsSpy);
   return {
     sut,
     fieldValidationsSpy,

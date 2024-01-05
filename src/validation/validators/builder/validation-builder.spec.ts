@@ -14,21 +14,18 @@ describe('ValidationBuilder', () => {
 
   test('Should return EmailValidation', () => {
     const field = faker.database.column();
-
     const validations = ValidationBuilder.field(field).email().build();
     expect(validations).toEqual([new EmailValidation(field)]);
   });
 
   test('Should return EmailValidation', () => {
     const field = faker.database.column();
-
     const validations = ValidationBuilder.field(field).minLength(5).build();
     expect(validations).toEqual([new MinLengthValidation(field, 5)]);
   });
 
   test('Should return a list of Validations', () => {
     const field = faker.database.column();
-
     const validations = ValidationBuilder.field(field)
       .required()
       .email()
