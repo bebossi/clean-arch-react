@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from './login';
+import { Login } from '@/presentation/pages';
 import {
   RenderResult,
   render,
@@ -52,10 +52,7 @@ const simulateValidSubmit = async (
   await waitFor(() => form);
 };
 
-const populateEmailField = (
-  sut: RenderResult,
-  email = faker.internet.email()
-): void => {
+const populateEmailField = (sut: RenderResult, email = faker.internet.email()): void => {
   const emailInput = sut.getByTestId('email');
   fireEvent.input(emailInput, {
     target: { value: email },
@@ -90,11 +87,7 @@ const testElementExists = (sut: RenderResult, fieldName: string): void => {
   const el = sut.getByTestId(fieldName);
   expect(el).toBeTruthy();
 };
-const testElementText = (
-  sut: RenderResult,
-  fieldName: string,
-  text: string
-): void => {
+const testElementText = (sut: RenderResult, fieldName: string, text: string): void => {
   const el = sut.getByTestId(fieldName);
   expect(el.textContent).toBe(text);
 };
@@ -189,9 +182,7 @@ describe('Login Component', () => {
   test('Should present error if authentication fails', async () => {
     const { sut, authenticationSpy } = makeSut();
     const error = new InvalidCredentialsError();
-    jest
-      .spyOn(authenticationSpy, 'auth')
-      .mockReturnValueOnce(Promise.reject(error));
+    jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.reject(error));
     await simulateValidSubmit(sut);
     testElementText(sut, 'main-error', error.message);
     testErrorWrapChildCount(sut, 1);
