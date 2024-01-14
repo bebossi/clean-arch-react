@@ -10,8 +10,8 @@
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
-    "check": "npm-check -u -s",
-    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info",
+    "check": "npm-check -u -s"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +28,7 @@
     "aria-query": "^5.3.0",
     "autoprefixer": "^10.4.16",
     "clean-webpack-plugin": "^4.0.0",
+    "coveralls": "^3.1.1",
     "css-loader": "^6.8.1",
     "eslint": "^8.55.0",
     "eslint-config-standard-with-typescript": "^43.0.0",
