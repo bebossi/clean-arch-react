@@ -3,3 +3,4 @@ coverage
 public
 webpack.config.js
 **/*.css
+jest.config.js
