@@ -1,22 +1,22 @@
 /* eslint-disable no-constant-condition */
 import React, { useState, useEffect } from 'react';
-import {
-  LoginHeader,
-  Footer,
-  Input,
-  FormStatus,
-} from '@/presentation/components';
+import { LoginHeader, Footer, Input, FormStatus } from '@/presentation/components';
 import Context from '@/presentation/contexts/form/form-context';
 import { Validation } from '@/presentation/protocols/validation';
-import { Authentication } from '@/domain/usecases';
+import { Authentication, SaveAccessToken } from '@/domain/usecases';
 import { Link, useNavigate } from 'react-router-dom';
 
 type Props = {
   validation: Validation;
   authentication: Authentication;
+  saveAccessToken: SaveAccessToken;
 };
 
-const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
+const Login: React.FC<Props> = ({
+  validation,
+  authentication,
+  saveAccessToken,
+}: Props) => {
   const navigate = useNavigate();
   const [state, setState] = useState({
     isLoading: false,
@@ -35,9 +35,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
     });
   }, [state.email, state.password]);
 
-  const handleSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     try {
       if (state.isLoading || state.emailError || state.passwordError) {
@@ -51,7 +49,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
         email: state.email,
         password: state.password,
       });
-      localStorage.setItem('accessToken', account.accessToken);
+      await saveAccessToken.save(account.accessToken);
       navigate('/');
     } catch (err) {
       setState({
@@ -72,9 +70,7 @@ const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
           onSubmit={handleSubmit}
           className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md"
         >
-          <h2 className="text-rose-900 text-center text-xl font-bold ">
-            LOGIN
-          </h2>
+          <h2 className="text-rose-900 text-center text-xl font-bold ">LOGIN</h2>
           <Input
             className="flex-grow pl-[8px] pr-[40px] border border-rose-500 leading-[40px] rounded-[4px] focus:outline-rose-500 "
             type="email"
