@@ -1,22 +1,34 @@
-/* eslint-disable no-constant-condition */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoginHeader, Footer, Input, FormStatus } from '@/presentation/components';
 import Context from '@/presentation/contexts/form/form-context';
+import { Validation } from '@/presentation/protocols/validation';
 
-const Signup: React.FC = () => {
-  const [state] = useState({
+type Props = {
+  validation: Validation;
+};
+
+const Signup: React.FC<Props> = ({ validation }: Props) => {
+  const [state, setState] = useState({
     isLoading: false,
-    nameError: 'Required field',
+    name: '',
+    nameError: '',
     emailError: 'Required field',
     passwordError: 'Required field',
     passwordConfirmationError: 'Required field',
     mainError: '',
   });
 
+  useEffect(() => {
+    setState({
+      ...state,
+      nameError: validation.validate('name', state.name),
+    });
+  }, [state.name]);
+
   return (
     <div className="flex flex-col h-screen justify-between bg-slate-100">
       <LoginHeader />
-      <Context.Provider value={{ state }}>
+      <Context.Provider value={{ state, setState }}>
         <form className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md">
           <h2 className="text-rose-900 text-center text-xl font-bold ">Sign up</h2>
           <Input
