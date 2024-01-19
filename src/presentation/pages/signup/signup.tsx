@@ -34,11 +34,25 @@ const Signup: React.FC<Props> = ({ validation }: Props) => {
     });
   }, [state.name, state.email, state.password, state.passwordConfirmation]);
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault();
+
+    setState({
+      ...state,
+      isLoading: true,
+    });
+  };
+
   return (
     <div className="flex flex-col h-screen justify-between bg-slate-100">
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
-        <form className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md">
+        <form
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onSubmit={handleSubmit}
+          data-testid="form"
+          className="flex flex-col w-[400px] bg-white p-[40px] rounded-lg self-center shadow-md"
+        >
           <h2 className="text-rose-900 text-center text-xl font-bold ">Sign up</h2>
           <Input
             className="flex-grow pl-[8px] pr-[40px] border border-rose-500 leading-[40px] rounded-[4px] focus:outline-rose-500 "
