@@ -3,7 +3,7 @@ import { LoginHeader, Footer, Input, FormStatus } from '@/presentation/component
 import Context from '@/presentation/contexts/form/form-context';
 import { Validation } from '@/presentation/protocols/validation';
 import { AddAccount, SaveAccessToken } from '@/domain/usecases';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 type Props = {
   validation: Validation;
@@ -120,9 +120,12 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
           >
             Sign up
           </button>
-          <span className="text-center text-rose-500 mt-[16px] cursor-pointer hover:underline">
-            <span data-testid="signup">Already have an account? Login page</span>
-          </span>
+          <Link
+            to="/login"
+            className="text-center text-rose-500 mt-[16px] cursor-pointer hover:underline"
+          >
+            <span data-testid="login">Already have an account? Login page</span>
+          </Link>
           <FormStatus />
         </form>
       </Context.Provider>
