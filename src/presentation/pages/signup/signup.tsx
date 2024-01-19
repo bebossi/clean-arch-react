@@ -65,7 +65,12 @@ const Signup: React.FC<Props> = ({ validation }: Props) => {
             placeholder="Confirm your password"
           />
           <button
-            disabled
+            disabled={
+              !!state.emailError ||
+              !!state.passwordError ||
+              !!state.passwordConfirmationError ||
+              !!state.nameError
+            }
             data-testid="submit"
             className="bg-rose-500 mt-[32px] text-white rounded-lg text-base border-none leading-[60px"
           >
