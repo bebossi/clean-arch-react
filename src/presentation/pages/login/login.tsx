@@ -1,6 +1,12 @@
 /* eslint-disable no-constant-condition */
 import React, { useState, useEffect } from 'react';
-import { LoginHeader, Footer, Input, FormStatus } from '@/presentation/components';
+import {
+  LoginHeader,
+  Footer,
+  Input,
+  FormStatus,
+  SubmitButton,
+} from '@/presentation/components';
 import Context from '@/presentation/contexts/form/form-context';
 import { Validation } from '@/presentation/protocols/validation';
 import { Authentication, SaveAccessToken } from '@/domain/usecases';
@@ -20,6 +26,7 @@ const Login: React.FC<Props> = ({
   const navigate = useNavigate();
   const [state, setState] = useState({
     isLoading: false,
+    isFormInvalid: true,
     email: '',
     emailError: '',
     password: '',
@@ -28,17 +35,20 @@ const Login: React.FC<Props> = ({
   });
 
   useEffect(() => {
+    const emailError = validation.validate('email', state.email);
+    const passwordError = validation.validate('password', state.password);
     setState({
       ...state,
-      emailError: validation.validate('email', state.email),
-      passwordError: validation.validate('password', state.password),
+      emailError,
+      passwordError,
+      isFormInvalid: !!emailError || !!passwordError,
     });
   }, [state.email, state.password]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     try {
-      if (state.isLoading || state.emailError || state.passwordError) {
+      if (state.isLoading || state.isFormInvalid) {
         return;
       }
       setState({
@@ -83,17 +93,7 @@ const Login: React.FC<Props> = ({
             name="password"
             placeholder="Enter your password"
           />
-          <button
-            data-testid="submit"
-            disabled={!!state.emailError || !!state.passwordError}
-            className={`bg-rose-500 mt-[32px] text-white rounded-lg text-base border-none leading-[60px] ${
-              !!state.emailError || !!state.passwordError
-                ? 'bg-gray-400 text-gray-700 hover:opacity-100'
-                : ''
-            }`}
-          >
-            Login
-          </button>
+          <SubmitButton text="Login" />
           <Link
             to="/signup"
             className="text-center text-rose-500 mt-[16px] cursor-pointer hover:underline"
