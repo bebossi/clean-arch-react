@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { LoginHeader, Footer, Input, FormStatus } from '@/presentation/components';
 import Context from '@/presentation/contexts/form/form-context';
 import { Validation } from '@/presentation/protocols/validation';
-import { AddAccount } from '@/domain/usecases';
+import { AddAccount, SaveAccessToken } from '@/domain/usecases';
+import { useNavigate, Link } from 'react-router-dom';
 
 type Props = {
   validation: Validation;
   addAccount: AddAccount;
+  saveAccessToken: SaveAccessToken;
 };
 
-const Signup: React.FC<Props> = ({ validation, addAccount }: Props) => {
+const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Props) => {
+  const navigate = useNavigate();
+
   const [state, setState] = useState({
     isLoading: false,
     name: '',
@@ -38,19 +42,35 @@ const Signup: React.FC<Props> = ({ validation, addAccount }: Props) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
-    if (state.isLoading) {
-      return;
+    try {
+      if (
+        state.isLoading ||
+        state.nameError ||
+        state.emailError ||
+        state.passwordError ||
+        state.passwordConfirmationError
+      ) {
+        return;
+      }
+      setState({
+        ...state,
+        isLoading: true,
+      });
+      const account = await addAccount.add({
+        name: state.name,
+        email: state.email,
+        password: state.password,
+        passwordConfirmation: state.passwordConfirmation,
+      });
+      await saveAccessToken.save(account.accessToken);
+      navigate('/');
+    } catch (err) {
+      setState({
+        ...state,
+        isLoading: false,
+        mainError: err.message,
+      });
     }
-    setState({
-      ...state,
-      isLoading: true,
-    });
-    await addAccount.add({
-      name: state.name,
-      email: state.email,
-      password: state.password,
-      passwordConfirmation: state.passwordConfirmation,
-    });
   };
 
   return (
@@ -100,9 +120,12 @@ const Signup: React.FC<Props> = ({ validation, addAccount }: Props) => {
           >
             Sign up
           </button>
-          <span className="text-center text-rose-500 mt-[16px] cursor-pointer hover:underline">
-            <span data-testid="signup">Already have an account? Login page</span>
-          </span>
+          <Link
+            to="/login"
+            className="text-center text-rose-500 mt-[16px] cursor-pointer hover:underline"
+          >
+            <span data-testid="login">Already have an account? Login page</span>
+          </Link>
           <FormStatus />
         </form>
       </Context.Provider>
