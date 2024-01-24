@@ -4,7 +4,7 @@ export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:8080',
     fixturesFolder: false,
-    supportFile: false,
+    supportFile: './src/main/test/cypress/support/index.js',
     specPattern: './src/main/**/*.cy.{ts, tsx}',
     setupNodeEvents(on, config) {
       const webpackPreprocessor = require('@cypress/webpack-preprocessor')
