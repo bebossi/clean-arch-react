@@ -151,4 +151,25 @@ describe('Login', () => {
     cy.url().should('eq', `${Cypress.config().baseUrl}/`)
     cy.window().then((window) => assert.isOk(window.localStorage.getItem('accessToken')))
   })
+
+  it('Should prevent multiple submits', () => {
+    cy.intercept(
+      {
+        method: 'POST',
+        url: /login/,
+      },
+      {
+        statusCode: 200,
+        body: {
+          invalidProperty: faker.string.uuid(),
+        },
+      }
+    ).as('request')
+    cy.getByTestId('email').type(faker.internet.email())
+    cy.getByTestId('password').type(
+      faker.string.alphanumeric({ length: { min: 5, max: 12 } })
+    )
+    cy.getByTestId('submit').dblclick()
+    cy.get('@request.all').should('have.length', 1)
+  })
 })

@@ -9,7 +9,7 @@ const SubmitButton: React.FC<Props> = ({ text }: Props) => {
   console.log(state.isFormInvalid)
   return (
     <button
-      disabled={state.isFormInvalid}
+      disabled={state.isFormInvalid || state.isLoading}
       type="submit"
       data-testid="submit"
       className={` mt-[32px] text-white rounded-lg text-base border-none leading-[50px] ${
