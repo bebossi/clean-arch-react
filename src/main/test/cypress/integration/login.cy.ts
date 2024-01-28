@@ -161,7 +161,7 @@ describe('Login', () => {
       {
         statusCode: 200,
         body: {
-          invalidProperty: faker.string.uuid(),
+          accessToken: faker.string.uuid(),
         },
       }
     ).as('request')
@@ -171,5 +171,23 @@ describe('Login', () => {
     )
     cy.getByTestId('submit').dblclick()
     cy.get('@request.all').should('have.length', 1)
+  })
+
+  it('Should not call submit if form is Invalid', () => {
+    cy.intercept(
+      {
+        method: 'POST',
+        url: /login/,
+      },
+      {
+        statusCode: 200,
+        body: {
+          invalidProperty: faker.string.uuid(),
+        },
+      }
+    ).as('request')
+    // eslint-disable-next-line cypress/unsafe-to-chain-command
+    cy.getByTestId('email').type(faker.internet.email()).type('{enter}')
+    cy.get('@request.all').should('have.length', 0)
   })
 })

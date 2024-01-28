@@ -6,7 +6,6 @@ type Props = {
 }
 const SubmitButton: React.FC<Props> = ({ text }: Props) => {
   const { state } = useContext(Context)
-  console.log(state.isFormInvalid)
   return (
     <button
       disabled={state.isFormInvalid || state.isLoading}
