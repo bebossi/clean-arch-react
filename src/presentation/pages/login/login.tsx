@@ -50,7 +50,7 @@ const Login: React.FC<Props> = ({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     try {
-      if (state.isFormInvalid) {
+      if (state.isLoading || state.isFormInvalid) {
         return
       }
       setState({
