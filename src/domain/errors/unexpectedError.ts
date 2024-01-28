@@ -1,6 +1,6 @@
 export class UnexpectedError extends Error {
   constructor() {
-    super('Invalid Credentials');
-    this.name = 'UnexpectedError';
+    super('Something went wrong, try again later')
+    this.name = 'UnexpectedError'
   }
 }
