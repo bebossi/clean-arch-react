@@ -9,3 +9,15 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+/* @layer utilities { */
+.after-focus-within {
+  &:focus-within {
+    border-color: transparent;
+
+    &&::after {
+      transform: scaleX(1);
+    }
+  }
+}
+/* } */
