@@ -78,4 +78,11 @@ describe('Signup', () => {
     FormHelper.testMainError('Something went wrong, try again later')
     FormHelper.testUrl('/signup')
   })
+
+  it('Should present save accessToken if valid credentials are provided', () => {
+    Http.mockOk()
+    simulateValidSubmit()
+    FormHelper.testUrl('/')
+    FormHelper.testLocalStorageItem('accessToken')
+  })
 })
