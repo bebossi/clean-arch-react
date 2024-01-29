@@ -12,7 +12,7 @@ const SubmitButton: React.FC<Props> = ({ text }: Props) => {
       type="submit"
       data-testid="submit"
       className={` mt-[32px] text-white rounded-lg text-base border-none leading-[50px] ${
-        state.isFormInvalid
+        state.isFormInvalid || state.isLoading
           ? 'bg-gray-400 text-gray-700 hover:opacity-100'
           : 'bg-rose-500'
       }`}
