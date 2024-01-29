@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import * as FormHelper from '../support/form-helper'
-import * as Http from './login-mocks'
+import * as Http from '../support/login-mocks'
 
 const simulateValidSubmit = (): void => {
   cy.getByTestId('email').type(faker.internet.email())
@@ -67,7 +67,6 @@ describe('Login', () => {
   it('Should present save accessToken if valid credentials are provided', () => {
     Http.mockOk()
     simulateValidSubmit()
-    // cy.getByTestId('error-wrap').should('not.have.descendants')
     FormHelper.testUrl('/')
     FormHelper.testLocalStorageItem('accessToken')
   })
