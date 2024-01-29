@@ -95,4 +95,11 @@ describe('Signup', () => {
     cy.getByTestId('submit').dblclick()
     FormHelper.testHttpCallsCount(1)
   })
+
+  it('Should not call submit if form is Invalid', () => {
+    Http.mockOk()
+    // eslint-disable-next-line cypress/unsafe-to-chain-command
+    cy.getByTestId('email').type(faker.internet.email()).type('{enter}')
+    FormHelper.testHttpCallsCount(0)
+  })
 })
