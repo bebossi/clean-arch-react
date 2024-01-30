@@ -3,24 +3,24 @@ import {
   HttpPostParams,
   HttpResponse,
   HttpStatusCode,
-} from '@/data/protocols/http';
-import { faker } from '@faker-js/faker';
+} from '@/data/protocols/http'
+import { faker } from '@faker-js/faker'
 
-export const mockPostRequest = (): HttpPostParams<any> => ({
+export const mockPostRequest = (): HttpPostParams => ({
   url: faker.internet.url(),
   body: faker.getMetadata(),
-});
+})
 
-export class HttpPostClientSpy<T, R> implements HttpPostClient<T, R> {
-  url?: string;
-  body?: T;
+export class HttpPostClientSpy<R> implements HttpPostClient<R> {
+  url?: string
+  body?: any
   response: HttpResponse<R> = {
     statusCode: HttpStatusCode.ok,
-  };
+  }
 
-  async post(params: HttpPostParams<T>): Promise<HttpResponse<R>> {
-    this.url = params.url;
-    this.body = params.body;
-    return await Promise.resolve(this.response);
+  async post(params: HttpPostParams): Promise<HttpResponse<R>> {
+    this.url = params.url
+    this.body = params.body
+    return await Promise.resolve(this.response)
   }
 }
