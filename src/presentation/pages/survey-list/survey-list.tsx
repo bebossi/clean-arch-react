@@ -1,25 +1,11 @@
-import { Logo } from '@/presentation/components'
-import Footer from '@/presentation/components/Footer/footer'
+import { Footer, Header } from '@/presentation/components'
 import React from 'react'
 
 const SurveyList: React.FC = () => {
   return (
     // Surveylistwrap
     <div className="flex flex-col justify-between min-h-[100vh] bg-gray-300 ">
-      {/* // HeaderWrap */}
-      <header className="flex justify-center bg-rose-500 border-t-[40px] border-solid border-rose-950 ">
-        {/* Header content */}
-        <div className="flex flex-row flex-grow px-[40px] py-[24px] justify-between max-w-[800px]">
-          <Logo />
-          {/* Logou wrap */}
-          <div className="flex flex-col items-end text-white justify-center self-center">
-            <span className="text-[16px] mb-[8px] ">Bernardo</span>
-            <a className="hover:underline" href="#">
-              Logout
-            </a>
-          </div>
-        </div>
-      </header>
+      <Header />
       {/* content wrap */}
       <div className="flex flex-col self-center w-full max-w-[800px] flex-grow p-[40px] mb-[24px] ">
         <h2 className="text-rose-950 text-[20px] font-bold uppercase  ">Pools</h2>
