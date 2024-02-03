@@ -20,4 +20,15 @@
     }
   }
 }
+
+.linear-gradient {
+  background-image: linear-gradient(
+      to right,
+      hwb(344 34% 8% / 0.41),
+      hwb(344 34% 8% / 0.41)
+    ),
+    linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+  background-position: 0 0, 54 0;
+  background-size: 54px 100%, 100% 100%;
+}
 /* } */
