@@ -26,71 +26,10 @@ const SurveyList: React.FC = () => {
         <ul className="flex flex-row flex-wrap justify-between  ">
           <li className="h-[250px] bg-white flex flex-col justify-between rounded-lg basis-[48%] mb-[24px] shadow-md  ">
             {/* survey content */}
-            <div className="flex flex-row  rounded-t-md justify-between flex-grow bg-no-repeat bg-gradient-to-r from-rose-500 to-rose-500 linear-gradient ">
-              <time className="flex flex-col bg-rose-500 text-white rounded-md ml-[24px] self-center justify-center items-center w-[60px] h-[100px] flex-shrink-0 ">
-                <span className="text-[40px] font-bold ">22</span>
-                <span className="lowercase  ">03</span>
-                <span className="text-[16px]">2024</span>
-              </time>
-              <p className="text-[18px] m-[24px] self-center ">
-                What are your favorite web framework
-              </p>
-            </div>
-            <footer className="bg-rose-500 text-white leading-[40px] lowercase text-center cursor-pointer hover:bg-rose-950 rounded-b-md ">
-              See result
-            </footer>
-          </li>
-          <li className="h-[250px] bg-white flex flex-col justify-between rounded-lg basis-[48%] mb-[24px] shadow-md  ">
-            {/* survey content */}
-            <div className="flex flex-row  rounded-t-md justify-between flex-grow bg-no-repeat bg-gradient-to-r from-rose-500 to-rose-500 linear-gradient ">
-              <time className="flex flex-col bg-rose-500 text-white rounded-md ml-[24px] self-center justify-center items-center w-[60px] h-[100px] flex-shrink-0 ">
-                <span className="text-[40px] font-bold ">22</span>
-                <span className="lowercase  ">03</span>
-                <span className="text-[16px]">2024</span>
-              </time>
-              <p className="text-[18px] m-[24px] self-center ">
-                What are your favorite web framework
-              </p>
-            </div>
-            <footer className="bg-rose-500 text-white leading-[40px] lowercase text-center cursor-pointer hover:bg-rose-950 rounded-b-md ">
-              See result
-            </footer>
-          </li>
-          <li className="h-[250px] bg-white flex flex-col justify-between rounded-lg basis-[48%] mb-[24px] shadow-md  ">
-            {/* survey content */}
-            <div className="flex flex-row  rounded-t-md justify-between flex-grow bg-no-repeat bg-gradient-to-r from-rose-500 to-rose-500 linear-gradient ">
-              <time className="flex flex-col bg-rose-500 text-white rounded-md ml-[24px] self-center justify-center items-center w-[60px] h-[100px] flex-shrink-0 ">
-                <span className="text-[40px] font-bold ">22</span>
-                <span className="lowercase  ">03</span>
-                <span className="text-[16px]">2024</span>
-              </time>
-              <p className="text-[18px] m-[24px] self-center ">
-                What are your favorite web framework
-              </p>
-            </div>
-            <footer className="bg-rose-500 text-white leading-[40px] lowercase text-center cursor-pointer hover:bg-rose-950 rounded-b-md ">
-              See result
-            </footer>
-          </li>
-          <li className="h-[250px] bg-white flex flex-col justify-between rounded-lg basis-[48%] mb-[24px] shadow-md  ">
-            {/* survey content */}
-            <div className="flex flex-row  rounded-t-md justify-between flex-grow bg-no-repeat bg-gradient-to-r from-rose-500 to-rose-500 linear-gradient ">
-              <time className="flex flex-col bg-rose-500 text-white rounded-md ml-[24px] self-center justify-center items-center w-[60px] h-[100px] flex-shrink-0 ">
-                <span className="text-[40px] font-bold ">22</span>
-                <span className="lowercase  ">03</span>
-                <span className="text-[16px]">2024</span>
-              </time>
-              <p className="text-[18px] m-[24px] self-center ">
-                What are your favorite web framework
-              </p>
-            </div>
-            <footer className="bg-rose-500 text-white leading-[40px] lowercase text-center cursor-pointer hover:bg-rose-800 rounded-b-md ">
-              See result
-            </footer>
-          </li>
-          <li className="h-[250px] bg-white flex flex-col justify-between rounded-lg basis-[48%] mb-[24px] shadow-md  ">
-            {/* survey content */}
-            <div className="flex flex-row  rounded-t-md justify-between flex-grow bg-no-repeat bg-gradient-to-r from-rose-500 to-rose-500 linear-gradient ">
+            <div className="flex flex-row relative  rounded-t-md justify-between flex-grow bg-no-repeat bg-gradient-to-r from-rose-500 to-rose-500 linear-gradient ">
+              <div className="absolute -top-3 -right-3 bg-red-500 p-[10px] rounded-full flex shadow-md">
+                <img src="./icon-thumb-up.png" />
+              </div>
               <time className="flex flex-col bg-rose-500 text-white rounded-md ml-[24px] self-center justify-center items-center w-[60px] h-[100px] flex-shrink-0 ">
                 <span className="text-[40px] font-bold ">22</span>
                 <span className="lowercase  ">03</span>
