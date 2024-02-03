@@ -1,4 +1,4 @@
-import { Footer, Header } from '@/presentation/components'
+import { Footer, Header, Icon, IconName } from '@/presentation/components'
 import React from 'react'
 
 const SurveyList: React.FC = () => {
@@ -13,9 +13,7 @@ const SurveyList: React.FC = () => {
           <li className="h-[250px] bg-white flex flex-col justify-between rounded-lg basis-[48%] mb-[24px] shadow-md  ">
             {/* survey content */}
             <div className="flex flex-row relative  rounded-t-md justify-between flex-grow bg-no-repeat bg-gradient-to-r from-rose-500 to-rose-500 linear-gradient ">
-              <div className="absolute -top-3 -right-3 bg-red-500 p-[10px] rounded-full flex shadow-md">
-                <img src="./icon-thumb-up.png" />
-              </div>
+              <Icon iconName={IconName.thumbDown} />
               <time className="flex flex-col bg-rose-500 text-white rounded-md ml-[24px] self-center justify-center items-center w-[60px] h-[100px] flex-shrink-0 ">
                 <span className="text-[40px] font-bold ">22</span>
                 <span className="lowercase  ">03</span>
