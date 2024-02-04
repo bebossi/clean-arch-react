@@ -86,7 +86,7 @@ describe('Signup', () => {
     Http.mockOk()
     simulateValidSubmit()
     FormHelper.testUrl('/')
-    FormHelper.testLocalStorageItem('accessToken')
+    FormHelper.testLocalStorageItem('account')
   })
 
   it('Should prevent multiple submits', () => {

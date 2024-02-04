@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
   LoginHeader,
   Footer,
   Input,
   FormStatus,
   SubmitButton,
-} from '@/presentation/components';
-import Context from '@/presentation/contexts/form/form-context';
-import { Validation } from '@/presentation/protocols/validation';
-import { AddAccount, SaveAccessToken } from '@/domain/usecases';
-import { useNavigate, Link } from 'react-router-dom';
+} from '@/presentation/components'
+import Context from '@/presentation/contexts/form/form-context'
+import { Validation } from '@/presentation/protocols/validation'
+import { AddAccount, UpdateCurrentAccount } from '@/domain/usecases'
+import { useNavigate, Link } from 'react-router-dom'
 
 type Props = {
-  validation: Validation;
-  addAccount: AddAccount;
-  saveAccessToken: SaveAccessToken;
-};
+  validation: Validation
+  addAccount: AddAccount
+  updateCurrentAccount: UpdateCurrentAccount
+}
 
-const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Props) => {
-  const navigate = useNavigate();
+const Signup: React.FC<Props> = ({
+  validation,
+  addAccount,
+  updateCurrentAccount,
+}: Props) => {
+  const navigate = useNavigate()
 
   const [state, setState] = useState({
     isLoading: false,
@@ -32,18 +36,18 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
     passwordError: 'Required field',
     passwordConfirmationError: 'Required field',
     mainError: '',
-  });
+  })
 
   useEffect(() => {
-    const { name, email, password, passwordConfirmation } = state;
-    const formData = { name, email, password, passwordConfirmation };
-    const nameError = validation.validate('name', formData);
-    const emailError = validation.validate('email', formData);
-    const passwordError = validation.validate('password', formData);
+    const { name, email, password, passwordConfirmation } = state
+    const formData = { name, email, password, passwordConfirmation }
+    const nameError = validation.validate('name', formData)
+    const emailError = validation.validate('email', formData)
+    const passwordError = validation.validate('password', formData)
     const passwordConfirmationError = validation.validate(
       'passwordConfirmation',
       formData
-    );
+    )
     setState({
       ...state,
       nameError,
@@ -52,35 +56,35 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
       passwordConfirmationError,
       isFormInvalid:
         !!nameError || !!passwordConfirmationError || !!emailError || !!passwordError,
-    });
-  }, [state.name, state.email, state.password, state.passwordConfirmation]);
+    })
+  }, [state.name, state.email, state.password, state.passwordConfirmation])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       if (state.isFormInvalid || state.isLoading) {
-        return;
+        return
       }
       setState({
         ...state,
         isLoading: true,
-      });
+      })
       const account = await addAccount.add({
         name: state.name,
         email: state.email,
         password: state.password,
         passwordConfirmation: state.passwordConfirmation,
-      });
-      await saveAccessToken.save(account.accessToken);
-      navigate('/');
+      })
+      await updateCurrentAccount.save(account)
+      navigate('/')
     } catch (err) {
       setState({
         ...state,
         isLoading: false,
         mainError: err.message,
-      });
+      })
     }
-  };
+  }
 
   return (
     <div className="flex flex-col h-screen justify-between bg-slate-100">
@@ -129,7 +133,7 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
       </Context.Provider>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Signup;
+export default Signup
