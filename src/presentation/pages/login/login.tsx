@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   LoginHeader,
   Footer,
@@ -7,22 +7,18 @@ import {
   FormStatus,
   SubmitButton,
 } from '@/presentation/components'
-import Context from '@/presentation/contexts/form/form-context'
+import { FormContext, ApiContext } from '@/presentation/contexts'
 import { Validation } from '@/presentation/protocols/validation'
-import { Authentication, UpdateCurrentAccount } from '@/domain/usecases'
+import { Authentication } from '@/domain/usecases'
 import { Link, useNavigate } from 'react-router-dom'
 
 type Props = {
   validation: Validation
   authentication: Authentication
-  updateCurrentAccount: UpdateCurrentAccount
 }
 
-const Login: React.FC<Props> = ({
-  validation,
-  authentication,
-  updateCurrentAccount,
-}: Props) => {
+const Login: React.FC<Props> = ({ validation, authentication }: Props) => {
+  const { setCurrentAccount } = useContext(ApiContext)
   const navigate = useNavigate()
   const [state, setState] = useState({
     isLoading: false,
@@ -61,7 +57,7 @@ const Login: React.FC<Props> = ({
         email: state.email,
         password: state.password,
       })
-      await updateCurrentAccount.save(account)
+      setCurrentAccount(account)
       navigate('/')
     } catch (err) {
       setState({
@@ -75,7 +71,7 @@ const Login: React.FC<Props> = ({
   return (
     <div className="flex flex-col h-screen justify-between bg-slate-100">
       <LoginHeader />
-      <Context.Provider value={{ state, setState }}>
+      <FormContext.Provider value={{ state, setState }}>
         <form
           data-testid="form"
           // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -104,7 +100,7 @@ const Login: React.FC<Props> = ({
           </Link>
           <FormStatus />
         </form>
-      </Context.Provider>
+      </FormContext.Provider>
       <Footer />
     </div>
   )
