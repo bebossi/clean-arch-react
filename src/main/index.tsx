@@ -1,10 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Router } from '@/presentation/components';
-import '@/main/config/style.css';
-import { makeLogin } from './pages/login/login-factory';
-import { makeSignup } from './pages/signup/signup-factory';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import Router from '@/main/Routes/router'
+import '@/main/config/style.css'
 
-ReactDOM.createRoot(document.getElementById('main')).render(
-  <Router makeLogin={makeLogin} makeSignup={makeSignup} />
-);
+ReactDOM.createRoot(document.getElementById('main')).render(<Router />)
