@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { makeLogin } from '@/main/pages/login/login-factory'
 import { makeSignup } from '@/main/pages/signup/signup-factory'
 import { ApiContext } from '@/presentation/contexts'
-import { setCurrentAccountAdapter } from '../Adapters/current-account-adapter'
+import { setCurrentAccountAdapter } from '../adapters/current-account-adapter'
 
 const Router: React.FC = () => {
   return (
