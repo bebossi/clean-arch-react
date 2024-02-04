@@ -1,4 +1,3 @@
-import { SurveyList } from '@/presentation/pages'
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { makeLogin } from '@/main/pages/login/login-factory'
@@ -8,6 +7,8 @@ import {
   getCurrentAccountAdapter,
   setCurrentAccountAdapter,
 } from '../adapters/current-account-adapter'
+import { PrivateRoute } from '@/presentation/components'
+import { SurveyList } from '@/presentation/pages'
 
 const Router: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const Router: React.FC = () => {
         <Routes>
           <Route path="/login" Component={makeLogin} />
           <Route path="/signup" Component={makeSignup} />
-          <Route path="/" Component={SurveyList} />
+          <Route path="/" element={<PrivateRoute>{<SurveyList />}</PrivateRoute>} />
         </Routes>
       </BrowserRouter>
     </ApiContext.Provider>
