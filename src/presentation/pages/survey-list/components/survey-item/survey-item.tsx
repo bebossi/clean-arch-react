@@ -6,14 +6,15 @@ type Props = {
   survey: SurveyModel
 }
 const SurveyItem: React.FC<Props> = ({ survey }: Props) => {
+  const iconName = survey.didAnswer ? IconName.thumbUp : IconName.thumbDown
   return (
     <li className="h-[250px]  bg-white flex flex-col justify-between rounded-lg  sm:basis-[48%] mb-[24px] shadow-md  ">
       {/* survey content */}
       <div className="flex flex-row relative  rounded-t-md justify-between flex-grow bg-no-repeat bg-gradient-to-r from-rose-500 to-rose-500 linear-gradient ">
-        <Icon iconName={IconName.thumbUp} />
+        <Icon iconName={iconName} />
         <time className="flex flex-col bg-rose-500 text-white rounded-md ml-[24px] self-center justify-center items-center w-[60px] h-[100px] flex-shrink-0 ">
           <span data-testid="day" className="text-[40px] font-bold ">
-            {survey.date.getDate()}
+            {survey.date.getDate().toString().padStart(2, '0')}
           </span>
           <span data-testid="month" className="lowercase  ">
             {survey.date.toLocaleString('pt-BT', { month: 'short' }).replace('.', '')}
