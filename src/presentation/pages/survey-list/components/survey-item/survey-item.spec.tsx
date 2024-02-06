@@ -2,14 +2,18 @@ import React from 'react'
 import SurveyItem from './survey-item'
 import { mockSurveyModel } from '@/domain/test'
 import { render, screen } from '@testing-library/react'
-// import { IconName } from '@/presentation/components'
+
+const makeSut = (survey = mockSurveyModel()): void => {
+  render(<SurveyItem survey={survey} />)
+}
 
 describe('SurveyItem Component', () => {
   test('Should render with correct values', () => {
-    const survey = mockSurveyModel()
-    survey.didAnswer = true
-    survey.date = new Date('2023-01-10T00:00:00')
-    render(<SurveyItem survey={survey} />)
+    const survey = Object.assign(mockSurveyModel(), {
+      didAnswer: true,
+      date: new Date('2023-01-10T00:00:00'),
+    })
+    makeSut(survey)
     expect(screen.getByTestId('icon')).toHaveProperty(
       'src',
       'http://localhost/icon-thumb-up.png'
