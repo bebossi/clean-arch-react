@@ -1,5 +1,6 @@
 import { Footer, Header } from '@/presentation/components'
 import React from 'react'
+import { SurveyItemEmpty } from '@/presentation/pages/survey-list/components'
 
 const SurveyList: React.FC = () => {
   return (
@@ -9,7 +10,12 @@ const SurveyList: React.FC = () => {
       {/* content wrap */}
       <div className="flex flex-col self-center w-full max-w-[800px] flex-grow p-[40px] mb-[24px]  ">
         <h2 className="text-rose-950 text-[20px] font-bold uppercase  ">Pools</h2>
-        <ul className="flex flex-col sm:flex-row flex-wrap justify-between h-full "></ul>
+        <ul
+          data-testid="survey-list"
+          className="flex flex-col sm:flex-row flex-wrap justify-between h-full "
+        >
+          <SurveyItemEmpty />
+        </ul>
       </div>
       <Footer />
     </div>
