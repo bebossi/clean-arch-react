@@ -14,7 +14,7 @@ const Icon: React.FC<Props> = ({ iconName }) => {
     <div
       className={`absolute -top-3 -right-3 bg-red-500 p-[10px] rounded-full flex shadow-md ${iconColor} `}
     >
-      <img src={iconName} />
+      <img data-testid="icon" src={iconName} />
     </div>
   )
 }
