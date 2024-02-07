@@ -17,6 +17,7 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
   const [state, setState] = useState({
     surveys: [] as SurveyModel[],
     error: '',
+    reload: false,
   })
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
       .catch((error) => {
         setState({ ...state, error: error.message })
       })
-  }, [])
+  }, [state.reload])
 
   return (
     // Surveylistwrap
@@ -36,7 +37,12 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
       <Header />
       {/* content wrap */}
       <div className="flex flex-col self-center w-full max-w-[800px] flex-grow p-[40px] mb-[24px]  ">
-        <h2 className="text-rose-950 text-[20px] font-bold uppercase  ">Pools</h2>
+        <h2
+          data-testid="heading"
+          className="text-rose-950 text-[20px] font-bold uppercase  "
+        >
+          Pools
+        </h2>
         <SurveyContext.Provider value={{ state, setState }}>
           {state.error ? <Error /> : <SurveyListItem />}
         </SurveyContext.Provider>

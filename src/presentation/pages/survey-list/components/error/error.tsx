@@ -2,12 +2,20 @@ import React, { useContext } from 'react'
 import { SurveyContext } from '@/presentation/pages/survey-list/components'
 
 const Error: React.FC = () => {
-  const { state } = useContext(SurveyContext)
+  const { state, setState } = useContext(SurveyContext)
+  // const reload = (): void => {
+  //   setState({ surveys: [], error: '', reload: !state.reload })
+  // }
 
   return (
     <div>
       <span data-testid="error">{state.error}</span>
-      <button>Reload</button>
+      <button
+        data-testid="reload"
+        onClick={() => setState({ surveys: [], error: '', reload: !state.reload })}
+      >
+        Reload
+      </button>
     </div>
   )
 }
