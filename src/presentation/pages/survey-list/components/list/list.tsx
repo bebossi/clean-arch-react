@@ -1,5 +1,5 @@
 /* eslint-disable multiline-ternary */
-import { SurveyModel } from '@/domain/models'
+import { LoadSurveyList } from '@/domain/usecases'
 import {
   SurveyItem,
   SurveyItemEmpty,
@@ -15,7 +15,7 @@ const List: React.FC = () => {
       className="flex flex-col sm:flex-row flex-wrap justify-between h-full "
     >
       {state.surveys.length ? (
-        state.surveys.map((survey: SurveyModel) => (
+        state.surveys.map((survey: LoadSurveyList.Model) => (
           <SurveyItem key={survey.id} survey={survey} />
         ))
       ) : (

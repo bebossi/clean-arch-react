@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
-import { SurveyModel } from '../models'
+import { LoadSurveyList } from '../usecases'
 
-export const mockSurveyModel = (): SurveyModel => ({
+export const mockSurveyModel = (): LoadSurveyList.Model => ({
   id: faker.string.uuid(),
   question: faker.word.words(),
   answers: [
@@ -18,8 +18,17 @@ export const mockSurveyModel = (): SurveyModel => ({
   date: faker.date.recent(),
 })
 
-export const mockSurveyListModel = (): SurveyModel[] => [
+export const mockSurveyListModel = (): LoadSurveyList.Model[] => [
   mockSurveyModel(),
   mockSurveyModel(),
   mockSurveyModel(),
 ]
+
+export class LoadSurveyListSpy implements LoadSurveyList {
+  callsCount = 0
+  surveys = mockSurveyListModel()
+  async loadAll(): Promise<LoadSurveyList.Model[]> {
+    this.callsCount++
+    return this.surveys
+  }
+}

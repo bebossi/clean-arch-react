@@ -7,11 +7,11 @@ import { EmailInUseError } from '@/domain/errors'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 import { ApiContext } from '@/presentation/contexts'
-import { AccountModel } from '@/domain/models'
+import { AddAccount } from '@/domain/usecases'
 
 type SutTypes = {
   addAccountSpy: AddAccountSpy
-  setCurrentAccountMock: (account: AccountModel) => void
+  setCurrentAccountMock: (account: AddAccount.Model) => void
 }
 
 type SutParams = {
