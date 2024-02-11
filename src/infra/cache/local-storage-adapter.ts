@@ -2,8 +2,11 @@ import { GetStorage, SetStorage } from '@/data/protocols/cache'
 
 export class LocalStorageAdapter implements SetStorage, GetStorage {
   set(key: string, value: object): void {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    localStorage.setItem(key, JSON.stringify(value))
+    if (value) {
+      localStorage.setItem(key, JSON.stringify(value))
+    } else {
+      localStorage.removeItem(key)
+    }
   }
 
   get(key: string): any {
