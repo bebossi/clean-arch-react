@@ -4,16 +4,6 @@ import { LoadSurveyList } from '../usecases'
 export const mockSurveyModel = (): LoadSurveyList.Model => ({
   id: faker.string.uuid(),
   question: faker.word.words(),
-  answers: [
-    {
-      answer: faker.word.words(),
-      image: faker.internet.url(),
-    },
-    {
-      answer: faker.word.words(),
-      image: faker.internet.url(),
-    },
-  ],
   didAnswer: faker.datatype.boolean(),
   date: faker.date.recent(),
 })
