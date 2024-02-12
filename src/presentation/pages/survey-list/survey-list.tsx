@@ -1,5 +1,5 @@
 /* eslint-disable multiline-ternary */
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Footer, Header } from '@/presentation/components'
 import {
   Error,
@@ -7,12 +7,18 @@ import {
   SurveyListItem,
 } from '@/presentation/pages/survey-list/components'
 import { LoadSurveyList } from '@/domain/usecases'
+import { AccessDeniedError } from '@/domain/errors'
+import { useNavigate } from 'react-router-dom'
+import { ApiContext } from '@/presentation/contexts'
 
 type Props = {
   loadSurveyList: LoadSurveyList
 }
 
 const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
+  const navigate = useNavigate()
+  const { setCurrentAccount } = useContext(ApiContext)
+
   const [state, setState] = useState({
     surveys: [] as LoadSurveyList.Model[],
     error: '',
@@ -26,7 +32,12 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
         setState({ ...state, surveys })
       })
       .catch((error) => {
-        setState({ ...state, error: error.message })
+        if (error instanceof AccessDeniedError) {
+          setCurrentAccount(undefined)
+          navigate('/login')
+        } else {
+          setState({ ...state, error: error.message })
+        }
       })
   }, [state.reload])
 
