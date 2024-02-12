@@ -1,15 +1,14 @@
 import React, { memo, useContext } from 'react'
 import Logo from '../Logo/logo'
 import { ApiContext } from '@/presentation/contexts'
-import { useNavigate } from 'react-router-dom'
+import { useLogout } from '@/presentation/hooks'
 
 const Header: React.FC = () => {
-  const navigate = useNavigate()
-  const { setCurrentAccount, getCurrentAccount } = useContext(ApiContext)
-  const logout = (event: React.MouseEvent<HTMLAnchorElement>): void => {
+  const logout = useLogout()
+  const { getCurrentAccount } = useContext(ApiContext)
+  const buttonClick = (event: React.MouseEvent<HTMLAnchorElement>): void => {
     event.preventDefault()
-    setCurrentAccount(undefined)
-    navigate('/login')
+    logout()
   }
   return (
     // {/* // HeaderWrap */}
@@ -22,7 +21,12 @@ const Header: React.FC = () => {
           <span data-testid="username" className="text-[16px] mb-[8px] ">
             {getCurrentAccount().name}
           </span>
-          <a onClick={logout} data-testid="logout" className="hover:underline" href="#">
+          <a
+            onClick={buttonClick}
+            data-testid="logout"
+            className="hover:underline"
+            href="#"
+          >
             Logout
           </a>
         </div>
