@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 const Header: React.FC = () => {
   const navigate = useNavigate()
-  const { setCurrentAccount } = useContext(ApiContext)
+  const { setCurrentAccount, getCurrentAccount } = useContext(ApiContext)
   const logout = (event: React.MouseEvent<HTMLAnchorElement>): void => {
     event.preventDefault()
     setCurrentAccount(undefined)
@@ -19,7 +19,9 @@ const Header: React.FC = () => {
         <Logo />
         {/* Logou wrap */}
         <div className="flex flex-col items-end text-white justify-center self-center">
-          <span className="text-[16px] mb-[8px] ">Bernardo</span>
+          <span data-testid="username" className="text-[16px] mb-[8px] ">
+            {getCurrentAccount().name}
+          </span>
           <a onClick={logout} data-testid="logout" className="hover:underline" href="#">
             Logout
           </a>
