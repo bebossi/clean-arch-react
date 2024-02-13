@@ -1,7 +1,21 @@
 import { faker } from '@faker-js/faker'
-import * as FormHelper from '../support/form-helpers'
-import * as Helper from '../support/helpers'
-import * as Http from '../support/login-mocks'
+import * as FormHelper from '../utils/form-helpers'
+import * as Helper from '../utils/helpers'
+import * as Http from '../utils/http-mocks'
+
+const path = /login/
+
+export const mockInvalidCredentialsError = (): void => {
+  Http.mockUnauthorizedError(path)
+}
+
+export const mockUnexpectedError = (): void => {
+  Http.mockServerError(path, 'POST')
+}
+
+export const mockSuccess = (): void => {
+  Http.mockOk(path, 'POST', 'fx:account')
+}
 
 const populateFields = (): void => {
   cy.getByTestId('email').type(faker.internet.email())
@@ -49,34 +63,34 @@ describe('Login', () => {
   })
 
   it('Should present invalidCredentialsError on 401', () => {
-    Http.mockInvalidCredentialsError()
+    mockInvalidCredentialsError()
     simulateValidSubmit()
     FormHelper.testMainError('Invalid Credentials')
     Helper.testUrl('/login')
   })
 
   it('Should present UnexpectedError on default error cases', () => {
-    Http.mockUnexpectedError()
+    mockUnexpectedError()
     simulateValidSubmit()
     FormHelper.testMainError('Something went wrong, try again later')
   })
 
   it('Should present save accessToken if valid credentials are provided', () => {
-    Http.mockOk()
+    mockSuccess()
     simulateValidSubmit()
-    Helper.testUrl('/')
     Helper.testLocalStorageItem('account')
+    Helper.testUrl('/')
   })
 
   it('Should prevent multiple submits', () => {
-    Http.mockOk()
+    mockSuccess()
     populateFields()
     cy.getByTestId('submit').dblclick()
     Helper.testHttpCallsCount(1)
   })
 
   it('Should not call submit if form is Invalid', () => {
-    Http.mockOk()
+    mockSuccess()
     // eslint-disable-next-line cypress/unsafe-to-chain-command
     cy.getByTestId('email').type(faker.internet.email()).type('{enter}')
     Helper.testHttpCallsCount(0)

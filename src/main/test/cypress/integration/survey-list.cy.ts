@@ -1,16 +1,23 @@
-import { faker } from '@faker-js/faker'
-import * as Helper from '../support/helpers'
-import * as Http from '../support/survey-list-mocks'
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+import * as Helper from '../utils/helpers'
+import * as Http from '../utils/http-mocks'
+
+const path = /surveys/
+export const mockUnexpectedError = (): void => {
+  Http.mockServerError(path, 'GET')
+}
+export const mockAccessdeniedError = (): void => {
+  Http.mockForbiddenError(path, 'GET')
+}
 
 describe('SurveyList', () => {
   beforeEach(() => {
-    Helper.setLocalStorageItem('account', {
-      accessToken: faker.string.uuid(),
-      name: faker.person.firstName(),
+    cy.fixture('account').then((account) => {
+      Helper.setLocalStorageItem('account', account)
     })
   })
   it('Should present error on UnexpectedError', () => {
-    Http.mockUnexpectedError()
+    mockUnexpectedError()
     cy.visit('')
     cy.getByTestId('error').should(
       'contain.text',
@@ -19,20 +26,20 @@ describe('SurveyList', () => {
   })
 
   it('Should logout on AccessDeniedError', () => {
-    Http.mockAccessdeniedError()
+    mockAccessdeniedError()
     cy.visit('')
     Helper.testUrl('/login')
   })
 
   it('Should present correct username', () => {
-    Http.mockUnexpectedError()
+    mockUnexpectedError()
     cy.visit('')
     const { name } = Helper.getLocalStorageItem('account')
     cy.getByTestId('username').should('contain.text', name)
   })
 
   it('Should logout on logout link click', () => {
-    Http.mockUnexpectedError()
+    mockUnexpectedError()
     cy.visit('')
     cy.getByTestId('logout').click()
     Helper.testUrl('/login')
