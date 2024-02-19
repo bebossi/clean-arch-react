@@ -33,7 +33,6 @@ const SurveyList: React.FC = () => {
             {/* //Styles answer */}
             <span className="flex-grow mx-4 text-[20px]">React.js</span>
             {/* //percent */}
-
             <span className="text-[30px]">50%</span>
           </li>
         </ul>
