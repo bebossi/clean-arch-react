@@ -1,4 +1,4 @@
-import { Footer, Header, Spinner } from '@/presentation/components'
+import { Footer, Header, Loading } from '@/presentation/components'
 import React from 'react'
 
 const SurveyList: React.FC = () => {
@@ -40,14 +40,7 @@ const SurveyList: React.FC = () => {
         <button className="bg-rose-500 leading-[50px] text-white rounded-md text-[20px] px-[16px] mt-[16px] outline-none ">
           Voltar
         </button>
-        {/* loading wrap */}
-        <div className="flex items-center justify-center bg-white bg-opacity-80 fixed top-0 left-0 right-0 bottom-0 cursor-wait ">
-          {/* loading */}
-          <div className="flex flex-col items-center justify-center bg-black bg-opacity-90 w-[300px] h-[150px] rounded-md text-white ">
-            <span className="font-[16px]">Wait ...</span>
-            <Spinner />
-          </div>
-        </div>
+        <Loading />
       </div>
       <Footer />
     </div>
