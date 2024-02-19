@@ -1,4 +1,4 @@
-import { Footer, Header, Loading } from '@/presentation/components'
+import { Calendar, Footer, Header, Loading } from '@/presentation/components'
 import React from 'react'
 
 const SurveyList: React.FC = () => {
@@ -8,9 +8,12 @@ const SurveyList: React.FC = () => {
       <Header />
       {/* // Content wrap */}
       <div className="flex flex-col self-center max-w-[800px] w-full flex-grow p-[40px]">
-        <h2 className="text-rose-950 text-[20px] font-bold">
-          Qual seu framework web fav?
-        </h2>
+        <hgroup className="flex flex-row items-center mb-4  ">
+          <Calendar date={new Date()} className="w-[80px] mr-4 " />
+          <h2 className="text-rose-950 text-[28px] font-bold">
+            Qual seu framework web fav?
+          </h2>
+        </hgroup>
         {/* answers list */}
         <ul className="list-none flex flex-col">
           <li className="flex justify-between bg-white items-center p-[16px] rounded-md text-rose-950 mt-[16px] active:border-[2px] active:border-rose-950 ">
