@@ -4,10 +4,10 @@ import React from 'react'
 const SurveyList: React.FC = () => {
   return (
     // SurveyResultWrap
-    <div className="flex flex-col justify-between min-h-[100vh] bg-gray-300 ">
+    <div className="flex flex-col justify-between min-h-[100vh] bg-gray-200  ">
       <Header />
       {/* // Content wrap */}
-      <div className="flex flex-col self-center max-w-[800px] w-full flex-grow p-[40px]">
+      <div className="flex flex-col self-center max-w-[800px] w-full flex-grow p-[40px] skeletonResult">
         <hgroup className="flex flex-row items-center mb-4  ">
           <Calendar date={new Date()} className="w-[80px] mr-4 " />
           <h2 className="text-rose-950 text-[28px] font-bold">
