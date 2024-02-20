@@ -1,13 +1,20 @@
 import { LoadSurveyResult } from '@/domain/usecases'
 import { Calendar, Error, Footer, Header, Loading } from '@/presentation/components'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const SurveyList: React.FC = () => {
+type Props = {
+  loadSurveyResult: LoadSurveyResult
+}
+
+const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
   const [state] = useState({
     isLoading: false,
     error: '',
     surveyResult: null as LoadSurveyResult.Model,
   })
+  useEffect(() => {
+    loadSurveyResult.load()
+  }, [])
   return (
     // SurveyResultWrap
     <div className="flex flex-col justify-between min-h-[100vh] bg-gray-200  ">
