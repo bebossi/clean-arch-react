@@ -17,9 +17,9 @@ const SurveyList: React.FC = () => {
         {/* answers list */}
         <ul className="list-none flex flex-col">
           <li className="flex justify-between bg-white items-center p-[16px] rounded-md text-rose-950 mt-[16px] active:border-[2px] active:border-rose-950 ">
-            <img src="" className="w-[50px] h-[50px]" />
+            <img src="" className="w-[50px] h-[50px] mr-4" />
             {/* //Styles answer */}
-            <span className="flex-grow mx-4 text-[20px]">React.js</span>
+            <span className="flex-grow mr-4 text-[20px]">React.js</span>
             {/* //percent */}
             <span className="text-[30px]">50%</span>
           </li>
