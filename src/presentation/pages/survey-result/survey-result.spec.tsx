@@ -5,20 +5,23 @@ import { ApiContext } from '@/presentation/contexts'
 import { mockAccountModel } from '@/domain/test'
 import { Router } from 'react-router-dom'
 
+const makeSut = (): void => {
+  render(
+    <ApiContext.Provider
+      value={{
+        setCurrentAccount: jest.fn(),
+        getCurrentAccount: () => mockAccountModel(),
+      }}
+    >
+      <Router location={''} navigator={undefined}>
+        <SurveyResult />
+      </Router>
+    </ApiContext.Provider>
+  )
+}
 describe('SurveyResult Component', () => {
   test('Should present correct initial state', () => {
-    render(
-      <ApiContext.Provider
-        value={{
-          setCurrentAccount: jest.fn(),
-          getCurrentAccount: () => mockAccountModel(),
-        }}
-      >
-        <Router location={''} navigator={undefined}>
-          <SurveyResult />
-        </Router>
-      </ApiContext.Provider>
-    )
+    makeSut()
     const surveyResult = screen.getByTestId('survey-result')
     expect(surveyResult.childElementCount).toBe(0)
     expect(screen.queryByTestId('error')).not.toBeInTheDocument()
