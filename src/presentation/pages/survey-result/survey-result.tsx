@@ -42,7 +42,8 @@ const SurveyList: React.FC = () => {
         <button className="bg-rose-500 leading-[50px] text-white rounded-md text-[20px] px-[16px] mt-[16px] outline-none ">
           Voltar
         </button>
-        <Loading />
+
+        {false && <Loading />}
       </div>
       <Footer />
     </div>

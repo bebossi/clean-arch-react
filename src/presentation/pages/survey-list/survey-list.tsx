@@ -1,8 +1,7 @@
 /* eslint-disable multiline-ternary */
 import React, { useEffect, useState } from 'react'
-import { Footer, Header } from '@/presentation/components'
+import { Footer, Header, Error } from '@/presentation/components'
 import {
-  Error,
   SurveyContext,
   SurveyListItem,
 } from '@/presentation/pages/survey-list/components'
@@ -33,6 +32,14 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
       .catch(handleError)
   }, [state.reload])
 
+  const reload = (): void => {
+    setState((old) => ({
+      surveys: [],
+      error: '',
+      reload: !old.reload,
+    }))
+  }
+
   return (
     // Surveylistwrap
     <div className="flex flex-col justify-between min-h-[100vh] bg-gray-300 ">
@@ -46,7 +53,11 @@ const SurveyList: React.FC<Props> = ({ loadSurveyList }: Props) => {
           Pools
         </h2>
         <SurveyContext.Provider value={{ state, setState }}>
-          {state.error ? <Error /> : <SurveyListItem />}
+          {state.error ? (
+            <Error error={state.error} reload={reload} />
+          ) : (
+            <SurveyListItem />
+          )}
         </SurveyContext.Provider>
       </div>
       <Footer />
