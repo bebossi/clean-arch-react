@@ -7,13 +7,18 @@ type Props = {
 }
 
 const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
-  const [state] = useState({
+  const [state, setState] = useState({
     isLoading: false,
     error: '',
     surveyResult: null as LoadSurveyResult.Model,
   })
   useEffect(() => {
-    loadSurveyResult.load()
+    loadSurveyResult
+      .load()
+      .then((surveyResult) => {
+        setState((old) => ({ ...old, surveyResult }))
+      })
+      .catch()
   }, [])
   return (
     // SurveyResultWrap
@@ -27,35 +32,37 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
         {state.surveyResult && (
           <>
             <hgroup className="flex flex-row items-center mb-4  ">
-              <Calendar date={new Date()} className="w-[80px] mr-4 " />
-              <h2 className="text-rose-950 text-[28px] font-bold">
-                Qual seu framework web fav?
+              <Calendar date={state.surveyResult.date} className="w-[80px] mr-4 " />
+              <h2 data-testid="question" className="text-rose-950 text-[28px] font-bold">
+                {state.surveyResult.question}{' '}
               </h2>
             </hgroup>
             {/* answers list */}
-            <ul className="list-none flex flex-col">
-              <li className="flex justify-between bg-white items-center p-[16px] rounded-md text-rose-950 mt-[16px] active:border-[2px] active:border-rose-950 ">
-                <img src="" className="w-[50px] h-[50px] mr-4" />
-                {/* //Styles answer */}
-                <span className="flex-grow mr-4 text-[20px]">React.js</span>
-                {/* //percent */}
-                <span className="text-[30px]">50%</span>
-              </li>
-              <li className="flex justify-between bg-white items-center p-[16px] rounded-md text-rose-950 mt-[16px] active:border-[2px] active:border-rose-950 ">
-                <img src="" className="w-[50px] h-[50px]" />
-                {/* //Styles answer */}
-                <span className="flex-grow mx-4 text-[20px]">React.js</span>
-                {/* //percent */}
-
-                <span className="text-[30px]">50%</span>
-              </li>{' '}
-              <li className="flex justify-between bg-white items-center p-[16px] rounded-md text-rose-950 mt-[16px] active:border-[2px] active:border-rose-950 ">
-                <img src="" className="w-[50px] h-[50px]" />
-                {/* //Styles answer */}
-                <span className="flex-grow mx-4 text-[20px]">React.js</span>
-                {/* //percent */}
-                <span className="text-[30px]">50%</span>
-              </li>
+            <ul data-testid="answers" className="list-none flex flex-col">
+              {state.surveyResult.answers.map((answer) => (
+                <li
+                  data-testid="answer-wrap"
+                  key={answer.answer}
+                  className="flex justify-between bg-white items-center p-[16px] rounded-md text-rose-950 mt-[16px] active:border-[2px] active:border-rose-950 "
+                >
+                  {answer.image && (
+                    <img
+                      data-testid="image"
+                      src={answer.image}
+                      alt={answer.answer}
+                      className="w-[50px] h-[50px] mr-4"
+                    />
+                  )}
+                  {/* //Styles answer */}
+                  <span data-testid="answer" className="flex-grow mr-4 text-[20px]">
+                    {answer.answer}
+                  </span>
+                  {/* //percent */}
+                  <span data-testid="percent" className="text-[30px]">
+                    {answer.percent}%
+                  </span>
+                </li>
+              ))}
             </ul>
             <button className="bg-rose-500 leading-[50px] text-white rounded-md text-[20px] px-[16px] mt-[16px] outline-none ">
               Voltar
