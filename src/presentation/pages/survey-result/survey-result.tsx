@@ -1,5 +1,6 @@
 import { LoadSurveyResult } from '@/domain/usecases'
 import { Calendar, Error, Footer, Header, Loading } from '@/presentation/components'
+import { useErrorHandler } from '@/presentation/hooks'
 import React, { useEffect, useState } from 'react'
 
 type Props = {
@@ -7,6 +8,9 @@ type Props = {
 }
 
 const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
+  const handleError = useErrorHandler((error: Error) => {
+    setState({ ...state, error: error.message, surveyResult: null })
+  })
   const [state, setState] = useState({
     isLoading: false,
     error: '',
@@ -18,7 +22,7 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
       .then((surveyResult) => {
         setState((old) => ({ ...old, surveyResult }))
       })
-      .catch()
+      .catch(handleError)
   }, [])
   return (
     // SurveyResultWrap
@@ -37,7 +41,6 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
                 {state.surveyResult.question}{' '}
               </h2>
             </hgroup>
-            {/* answers list */}
             <ul data-testid="answers" className="list-none flex flex-col">
               {state.surveyResult.answers.map((answer) => (
                 <li
@@ -53,11 +56,9 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
                       className="w-[50px] h-[50px] mr-4"
                     />
                   )}
-                  {/* //Styles answer */}
                   <span data-testid="answer" className="flex-grow mr-4 text-[20px]">
                     {answer.answer}
                   </span>
-                  {/* //percent */}
                   <span data-testid="percent" className="text-[30px]">
                     {answer.percent}%
                   </span>
