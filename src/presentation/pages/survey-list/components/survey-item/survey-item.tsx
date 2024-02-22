@@ -1,6 +1,7 @@
 import { LoadSurveyList } from '@/domain/usecases'
 import { Calendar, Icon, IconName } from '@/presentation/components'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 type Props = {
   survey: LoadSurveyList.Model
@@ -18,7 +19,9 @@ const SurveyItem: React.FC<Props> = ({ survey }: Props) => {
         </p>
       </div>
       <footer className="bg-rose-500 text-white leading-[40px] lowercase text-center cursor-pointer hover:bg-rose-950 rounded-b-md ">
-        See result
+        <Link data-testid="link" to={`/surveys/${survey.id}`}>
+          See result
+        </Link>
       </footer>
     </li>
   )
