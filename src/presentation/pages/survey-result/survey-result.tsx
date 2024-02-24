@@ -2,6 +2,7 @@ import { LoadSurveyResult } from '@/domain/usecases'
 import { Calendar, Error, Footer, Header, Loading } from '@/presentation/components'
 import { useErrorHandler } from '@/presentation/hooks'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   loadSurveyResult: LoadSurveyResult
@@ -35,6 +36,8 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
       isLoading: false,
     }))
   }
+
+  const navigate = useNavigate()
   return (
     // SurveyResultWrap
     <div className="flex flex-col justify-between min-h-[100vh] bg-gray-200  ">
@@ -76,7 +79,13 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
                 </li>
               ))}
             </ul>
-            <button className="bg-rose-500 leading-[50px] text-white rounded-md text-[20px] px-[16px] mt-[16px] outline-none ">
+            <button
+              data-testid="back-button"
+              onClick={() => {
+                navigate(-1)
+              }}
+              className="bg-rose-500 leading-[50px] text-white rounded-md text-[20px] px-[16px] mt-[16px] outline-none "
+            >
               Voltar
             </button>
           </>
