@@ -7,6 +7,10 @@ export const mockUnexpectedError = (): void => {
   Http.mockServerError(path, 'GET')
 }
 
+export const mockSuccess = (): void => {
+  Http.mockOk(path, 'GET', 'fx:survey-result')
+}
+
 describe('SurveyList', () => {
   beforeEach(() => {
     cy.fixture('account').then((account) => {
@@ -20,5 +24,17 @@ describe('SurveyList', () => {
       'contain.text',
       'Something went wrong, try again later'
     )
+  })
+
+  it('Should reload on button click', () => {
+    cy.visit('/surveys/any_id')
+    mockUnexpectedError()
+    cy.getByTestId('error').should(
+      'contain.text',
+      'Something went wrong, try again later'
+    )
+    mockSuccess()
+    cy.getByTestId('reload').click()
+    cy.getByTestId('question').should('exist')
   })
 })
