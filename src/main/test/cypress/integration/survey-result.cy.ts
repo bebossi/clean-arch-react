@@ -67,4 +67,12 @@ describe('SurveyList', () => {
       assert.notExists(li.find('[data-testid="image"]'))
     })
   })
+
+  it('Should logout on AccessDeniedError', () => {
+    mockSuccess()
+    cy.visit('/')
+    cy.visit('/surveys/any_id')
+    cy.getByTestId('back-button').click()
+    Helper.testUrl('/')
+  })
 })
