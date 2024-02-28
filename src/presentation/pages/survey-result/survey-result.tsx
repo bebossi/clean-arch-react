@@ -38,10 +38,8 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
   }
 
   return (
-    // SurveyResultWrap
     <div className="flex flex-col justify-between min-h-[100vh] bg-gray-200  ">
       <Header />
-      {/* // Content wrap */}
       <div
         data-testid="survey-result"
         className="flex flex-col self-center max-w-[800px] w-full flex-grow p-[40px] skeletonResult"
