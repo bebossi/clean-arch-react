@@ -1,5 +1,9 @@
 import { faker } from '@faker-js/faker'
-import { LoadSurveyResult } from '../usecases'
+import { LoadSurveyResult, SaveSurveyResult } from '../usecases'
+
+export const mockSaveSurveyResultParams = (): SaveSurveyResult.Params => ({
+  answer: faker.word.words(),
+})
 
 export const mockSurveyResultModel = (): LoadSurveyResult.Model => ({
   question: faker.word.words(),
