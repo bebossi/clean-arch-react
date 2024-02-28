@@ -12,9 +12,14 @@ type Props = {
   saveSurveyResult: SaveSurveyResult
 }
 
-const SurveyList: React.FC<Props> = ({ loadSurveyResult, saveSurveyResult }: Props) => {
+const SurveyResult: React.FC<Props> = ({ loadSurveyResult, saveSurveyResult }: Props) => {
   const handleError = useErrorHandler((error: Error) => {
-    setState({ ...state, error: error.message, surveyResult: null })
+    setState((old) => ({
+      ...old,
+      error: error.message,
+      surveyResult: null,
+      isLoading: false,
+    }))
   })
   const [state, setState] = useState({
     isLoading: false,
@@ -31,9 +36,10 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult, saveSurveyResult }: Pro
       })
       .catch(handleError)
   }, [state.reload])
+
   const onAnswer = (answer: string): void => {
     setState((old) => ({ ...old, isLoading: true }))
-    saveSurveyResult.save({ answer }).then().catch()
+    saveSurveyResult.save({ answer }).then().catch(handleError)
   }
 
   const reload = (): void => {
@@ -64,4 +70,4 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult, saveSurveyResult }: Pro
   )
 }
 
-export default SurveyList
+export default SurveyResult
