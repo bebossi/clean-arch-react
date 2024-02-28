@@ -1,14 +1,18 @@
-import { LoadSurveyResult } from '@/domain/usecases'
+import { LoadSurveyResult, SaveSurveyResult } from '@/domain/usecases'
 import { Error, Footer, Header, Loading } from '@/presentation/components'
 import { useErrorHandler } from '@/presentation/hooks'
 import React, { useEffect, useState } from 'react'
-import { SurveyResulData } from '@/presentation/pages/survey-result/components'
+import {
+  SurveyResulContext,
+  SurveyResulData,
+} from '@/presentation/pages/survey-result/components'
 
 type Props = {
   loadSurveyResult: LoadSurveyResult
+  saveSurveyResult: SaveSurveyResult
 }
 
-const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
+const SurveyList: React.FC<Props> = ({ loadSurveyResult, saveSurveyResult }: Props) => {
   const handleError = useErrorHandler((error: Error) => {
     setState({ ...state, error: error.message, surveyResult: null })
   })
@@ -27,6 +31,10 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
       })
       .catch(handleError)
   }, [state.reload])
+  const onAnswer = (answer: string): void => {
+    setState((old) => ({ ...old, isLoading: true }))
+    saveSurveyResult.save({ answer }).then().catch()
+  }
 
   const reload = (): void => {
     setState((old) => ({
@@ -40,14 +48,17 @@ const SurveyList: React.FC<Props> = ({ loadSurveyResult }: Props) => {
   return (
     <div className="flex flex-col justify-between min-h-[100vh] bg-gray-200  ">
       <Header />
-      <div
-        data-testid="survey-result"
-        className="flex flex-col self-center max-w-[800px] w-full flex-grow p-[40px] skeletonResult"
-      >
-        {state.surveyResult && <SurveyResulData surveyResult={state.surveyResult} />}
-        {state.isLoading && <Loading />}
-        {state.error && <Error error={state.error} reload={reload} />}
-      </div>
+      <SurveyResulContext.Provider value={{ onAnswer }}>
+        <div
+          data-testid="survey-result"
+          className="flex flex-col self-center max-w-[800px] w-full flex-grow p-[40px] skeletonResult"
+        >
+          {state.surveyResult && <SurveyResulData surveyResult={state.surveyResult} />}
+          {state.isLoading && <Loading />}
+          {state.error && <Error error={state.error} reload={reload} />}
+        </div>
+      </SurveyResulContext.Provider>
+
       <Footer />
     </div>
   )
